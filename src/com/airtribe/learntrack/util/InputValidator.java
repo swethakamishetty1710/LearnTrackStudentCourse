@@ -27,12 +27,12 @@ public class InputValidator {
         return scanner.next();
     }
 
-    public static int validateRange(int value, int min, int max) {
-        if (value < min || value > max) {
+    public static int validateRange(int inputValue, int min, int max) {
+        if (inputValue < min || inputValue > max) {
             throw new InvalidInputException(
                     "Input must be between " + min + " and " + max
             );
         }
-        return value;
+        return inputValue;
     }
 }
