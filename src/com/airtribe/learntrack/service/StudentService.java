@@ -5,37 +5,39 @@ import com.airtribe.learntrack.exception.EntityNotFoundException;
 import com.airtribe.learntrack.repository.StudentRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StudentService {
-    private StudentRepository repository = new StudentRepository();
-    public  void addStudent(Student student){
+    private final StudentRepository repository = new StudentRepository();
+
+    public void addStudent(Student student) {
         try {
             repository.addStudent(student);
             System.out.println("Student added successfully");
-        }catch(Exception e){
+        } catch (Exception e) {
             //e.printStackTrace();
-            System.out.println("Error in adding student"+e.getMessage());
+            System.out.println("Error in adding student" + e.getMessage());
         }
     }
+
     public void searchStudentById(int id) {
         Student student = repository.searchStudentById(id);
 
         if (student != null) {
-            System.out.println("Student is: " + student.getFirstName());
+            System.out.println("Student FirstName is: " + student.getFirstName());
             System.out.println("Student batch: " + student.getBatch());
-            System.out.println("Student FirstName:: " + student.getFirstName());
-        } else  {
+        } else {
             throw new EntityNotFoundException(
                     "Student with ID " + id + " not found"
             );
         }
     }
+
     public void deactivateStudent(int id) {
-        boolean deactivated=repository.deactivateStudent(id);
-        if (deactivated) {
+        boolean deactivatedStudentStatus = repository.deactivateStudent(id);
+        if (deactivatedStudentStatus) {
             System.out.println("Student deactivated");
-        }else  {
-            System.out.println("Student not deactivated");
+        } else {
             throw new EntityNotFoundException(
                     "Student with ID " + id + " not found"
             );
@@ -43,7 +45,7 @@ public class StudentService {
 
     }
 
-    public ArrayList<Student> viewStudents() {
+    public List<Student> viewStudents() {
         return repository.viewStudents();
     }
 }

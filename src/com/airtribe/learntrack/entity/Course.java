@@ -5,10 +5,10 @@ public class Course {
     private int id;
     private String courseName;
     private String description;
-    private String durationInWeeks;
+    private int durationInWeeks;
     private boolean active;
 
-    public Course(int id, String courseName, String description, String durationInWeeks, boolean active) {
+    public Course(int id, String courseName, String description, int durationInWeeks, boolean active) {
         this.id = id;
         this.courseName = courseName;
         this.description = description;
@@ -40,11 +40,11 @@ public class Course {
         this.description = description;
     }
 
-    public String getDurationInWeeks() {
+    public int getDurationInWeeks() {
         return durationInWeeks;
     }
 
-    public void setDurationInWeeks(String durationInWeeks) {
+    public void setDurationInWeeks(int durationInWeeks) {
         this.durationInWeeks = durationInWeeks;
     }
 

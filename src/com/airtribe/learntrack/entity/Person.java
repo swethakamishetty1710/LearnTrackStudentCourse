@@ -1,20 +1,36 @@
 package com.airtribe.learntrack.entity;
 
+import java.util.regex.Pattern;
+
 public class Person {
     private String firstName;
     private String lastName;
     private String email;
     private int id;
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 
     public Person(String firstName, String lastName, String email, int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("ID cannot be negative");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        setEmail(email);
         this.id = id;
     }
-    public String getDisplayName(){
-        return firstName+" "+lastName;
+
+    public void setEmail(String email) {
+        if (email == null || !EMAIL_PATTERN.matcher(email).matches()) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+        this.email = email;
     }
+
+    public String getDisplayName() {
+        return firstName + " " + lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -33,10 +49,6 @@ public class Person {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public int getId() {
