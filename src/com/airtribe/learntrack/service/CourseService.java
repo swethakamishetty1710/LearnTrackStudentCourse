@@ -5,32 +5,40 @@ import com.airtribe.learntrack.exception.EntityNotFoundException;
 import com.airtribe.learntrack.repository.CourseRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CourseService {
     private CourseRepository courseRepository = new CourseRepository();
-    public void addCourse(Course course){
+
+    public void addCourse(Course course) {
         try {
+            if (course == null) {
+                throw new IllegalArgumentException("Course cannot be null");
+            }
             courseRepository.addCourse(course);
             System.out.println("Course added successfully");
-        }catch(Exception e){
-            //e.printStackTrace();
-            System.out.println("Error in adding course"+e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error in adding course" + e.getMessage());
         }
 
     }
-    public ArrayList<Course> viewCourses(){
+
+    public List<Course> viewCourses() {
         return courseRepository.viewCourses();
     }
-    public void deactivateCourse(int courseID){
-        boolean cDeactivated=courseRepository.deactivateCourse(courseID);
-        if(cDeactivated){
-            System.out.println("Course Deactivated");
-        }else {
-            System.out.println("Course Not Deactivated");
+
+    public void deactivateCourse(int courseID) {
+        boolean cDeactivated = courseRepository.deactivateCourse(courseID);
+        if (!cDeactivated) {
             throw new EntityNotFoundException(
                     "Course with courseID " + courseID + " not found"
             );
-
         }
     }
+
+    public boolean isCourseValidService(int courseId) {
+        Course course = courseRepository.getCourseById(courseId);
+        return course != null && course.isActive();
+    }
+
 }
